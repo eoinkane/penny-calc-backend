@@ -18,10 +18,11 @@ The logic code is written in python and stored in `./app`
 
 ### __List of Scripts__
 
-* __`calculate/full_amount`__
+* __`amount/until/next_payday`__
 
-    This lambda calculates how many days till next payday then returns that quantity multiplied by 3.66 (the daily saving amount)  
-    The file is `app/src/calculate/full_amount/app.py`  
+    This lambda calculates how many days till next payday then returns the amount that needs to be saved between now and then  
+    This involves multiplying the number days by the daily saving amount (3.66)  
+    The file is `app/src/amount/until/next_payday/app.py`  
     The entrypoint is `lambda_handler`
 
 ## __Infrastructure as Code (CDK)__
@@ -48,8 +49,8 @@ The Serverless function allows us to call our Scripts
 
 #### __List of Lambdas__  
 
-* __`penny-calc-full-amount-lambda`__  
-    This lambda runs the `calculate/full_amount` script  
+* __`penny-calc-amount-until-next-payday-lambda`__  
+    This lambda runs the `amount/until/next_payday` script  
 
 ### __API Gateway__
 
@@ -57,18 +58,22 @@ The API Gateway provides access to the backend through Rest API calls.
 
 #### __Endpoints__
 
-* __`/next-date/calculate/full-amount`__
+* __`/amount/until/next-payday`__
     This endpoint is a GET method endpoint  
     Using an AWS_PROXY lamdba integration  
-    This endpoint links up to `penny-calc-full-amount-lambda` lambda
+    This endpoint links up to the lambda named `penny-calc-amount-until-next-payday-lambda`
 
 ## __Comands__
 
 It is reccommended to install the packages required  
 *run these commands to get started*  
-`PIPENV_VENV_IN_PROJECT=1 pipenv install --dev`  
-`PIPENV_VENV_IN_PROJECT=1 pipenv install`  
-`npm install`
+
+* `PIPENV_VENV_IN_PROJECT=1 pipenv install --dev`  
+* `PIPENV_VENV_IN_PROJECT=1 pipenv install`  
+* `npm install`
+* `export $(cat .env | xargs)`
+
+Every time you change values in `/.env` run `export $(cat .env | xargs)`
 
 A number of the commands rely on the cdk cli and so please have a valid session/token from AWS
 
@@ -81,17 +86,22 @@ A number of the commands rely on the cdk cli and so please have a valid session/
   * `build-cdk`
 
 * __`npm run build-python`__  
-    This command builds the python code with the packages installed
+    This command builds the python code with the packages installed into the build directory
 * __`npm run build-cdk`__  
-    This command builds the CDK stack
+    Runs the following commands
+
+  * `clean-cdk`
+  * `cdk-synth`
+
 * __`npm run cdk-synth`__  
-    This command builds a cloudformation template from the CDK stack
+    This command builds a cloudformation template from the CDK stack  
+    *Prequisite: `build-python`*
 * __`npm run cdk-diff`__  
     This command shows the difference between the latest template and the previous one
-* __`npm run cdk-deploy`__  
+* __`npm run deploy`__  
     This command deploys the cloudformation stack  
     *Prequisite: `ckd-synth`*
-* __`npm run cdk-deploy-ci`__  
+* __`npm run deploy-ci`__  
     Follows the same behaviour as `cdk-deploy` but does not ask for confirmation  
     *Prequisite: `ckd-synth`*
 * __`npm run test-cdk`__  
