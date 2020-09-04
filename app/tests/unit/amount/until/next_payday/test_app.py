@@ -4,7 +4,7 @@ from datetime import datetime as datetime_type
 from dateutil import rrule
 from dateutil.relativedelta import relativedelta
 from app.tests.utils.strip_milliseconds import strip_milliseconds
-from app.src.calculate.full_amount import app
+from app.src.amount.until.next_payday import app
 import pytest
 
 
