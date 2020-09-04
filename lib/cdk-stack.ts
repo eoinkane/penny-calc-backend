@@ -11,12 +11,12 @@ export class pennyCalcStack extends cdk.Stack {
     // defines an AWS Lambda resource
     const lambda = new AWSlambda.Function(
       this,
-      `penny-calc-full-amount-lambda-${process.env.DSAP}`,
+      `penny-calc-amount-until-next-payday-lambda-${process.env.DSAP}`,
       {
         runtime: AWSlambda.Runtime.PYTHON_3_7,
         code: AWSlambda.Code.fromAsset('build'),
-        handler: 'app.src.calculate.full_amount.app.lambda_handler',
-        functionName: `penny-calc-full-amount-lambda-${process.env.DSAP}`,
+        handler: 'src.amount.until.next_payday.app.lambda_handler',
+        functionName: `penny-calc-amount-until-next-payday-lambda-${process.env.DSAP}`,
       }
     );
 

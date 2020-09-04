@@ -41,7 +41,7 @@ describe('Lambda Properties', () => {
     // THEN
     expectCDK(stack).to(
       haveResource('AWS::Lambda::Function', {
-        Handler: 'app.src.calculate.full_amount.app.lambda_handler',
+        Handler: 'src.amount.until.next_payday.app.lambda_handler',
       })
     );
   });
@@ -52,7 +52,7 @@ describe('API Gateway', () => {
   // WHEN
   const stack = new Cdk.pennyCalcStack(app, 'MyTestStack');
 
-  delete originalOpenApi.paths['/next-date/calculate/full-amount'].get[
+  delete originalOpenApi.paths['/amount/until/next-payday'].get[
     'x-amazon-apigateway-integration'
   ].uri;
 
