@@ -25,7 +25,7 @@
   },
   "x-amazon-apigateway-request-validator": "all",
   "paths": {
-    "/next-date/calculate/full-amount": {
+    "/amount/until/next-payday": {
       "get": {
         "tags": ["MVP1"],
         "summary": "Calculates the amount left in penny challenge",
@@ -43,7 +43,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/fullamount"
+                  "$ref": "#/components/schemas/amount"
                 }
               }
             }
@@ -139,7 +139,7 @@
   },
   "components": {
     "schemas": {
-      "fullamount": {
+      "amount": {
         "title": "Calculation Amount",
         "type": "number",
         "example": 102.48
