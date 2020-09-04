@@ -1,0 +1,31 @@
+*.js
+!jest.config.js
+*.d.ts
+node_modules
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+# Parcel default cache directory
+.parcel-cache
+
+# Virtual Envs
+.venv
+
+# Editors
+.vscode/
+
+# Test Temp Files
+.pytest_cache/
+.coverage
+tests/.pytest_cache
+
+# Build
+build
+
+# TSC .js & .d.ts files
+lib/*.js
+bin/*.js
+test/*.js
+test/*.js

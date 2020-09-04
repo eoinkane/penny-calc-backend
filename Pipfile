@@ -1,0 +1,21 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+flake8 = "*"
+
+[packages]
+boto3 = "==1.14.49"
+botocore = "==1.17.49"
+docutils = "==0.15.2"
+jmespath = "==0.10.0"
+python-dateutil = "==2.8.1"
+python-lambda-local = "==0.1.12"
+s3transfer = "==0.3.3"
+six = "==1.15.0"
+urllib3 = "==1.25.10"
+
+[requires]
+python_version = "3.7"

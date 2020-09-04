@@ -1,0 +1,41 @@
+{
+  "name": "cdk",
+  "version": "0.1.0",
+  "bin": {
+    "cdk": "bin/cdk.js"
+  },
+  "scripts": {
+    "build": "npm run build-python && npm run build-cdk",
+    "build-python": "npm run clean-build && pipenv lock --requirements >> app/requirements/base.txt && cp -r app build && pip3 install -r app/requirements/base.txt -t build",
+    "build-cdk": "npm run clean-cdk && npm run cdk-synth",
+    "cdk-synth": "export $(cat .env | xargs) && cdk synth",
+    "cdk-diff": "cdk diff",
+    "cdk-deploy": "cdk deploy",
+    "cdk-deploy-ci": "cdk deploy --require-approval=never",
+    "test-cdk": "npm run build-python && jest",
+    "test-python": "pytest  --cov=./app/src -v app/tests",
+    "tsc": "tsc",
+    "clean": "npm run clean-tests && npm run clean-build && npm run clean-cdk",
+    "clean-tests": "find . -path '*/__pycache__/*' -delete && find . -type d  -name '__pycache__' -delete && find . -type d  -path '*/.pytest_cache/*' -exec rm -r {} + && find . -name '.coverage' -delete && rm test/cdk.test.js test/cdk.test.d.ts",
+    "clean-build": "rm -rf build",
+    "clean-cdk": "rm -rf cdk.out && rm lib/cdk-stack.js lib/cdk-stack.d.ts",
+    "run-lambda-local": "pipenv run python-lambda-local -f lambda_handler app/src/calculate/full_amount/app.py event.json"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "1.61.1",
+    "@types/jest": "^26.0.10",
+    "@types/node": "10.17.27",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.2.0",
+    "aws-cdk": "1.61.1",
+    "ts-node": "^8.1.0",
+    "typescript": "~3.9.7"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-apigateway": "1.61.1",
+    "@aws-cdk/aws-iam": "1.61.1",
+    "@aws-cdk/aws-lambda": "1.61.1",
+    "@aws-cdk/core": "1.61.1",
+    "source-map-support": "0.5.16"
+  }
+}
